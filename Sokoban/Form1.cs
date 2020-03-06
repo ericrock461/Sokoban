@@ -7,6 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+/*Erich Rock
+ * Mr. T
+ * Project: Sokoban*/
 
 namespace Sokoban
 {

@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.gameLoop = new System.Windows.Forms.Timer(this.components);
-            this.secondCounter = new System.Windows.Forms.Label();
+            this.moveCounter = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // gameLoop
@@ -39,21 +39,21 @@
             this.gameLoop.Interval = 50;
             this.gameLoop.Tick += new System.EventHandler(this.gameLoop_Tick);
             // 
-            // secondCounter
+            // moveCounter
             // 
-            this.secondCounter.AutoSize = true;
-            this.secondCounter.Location = new System.Drawing.Point(342, 86);
-            this.secondCounter.Name = "secondCounter";
-            this.secondCounter.Size = new System.Drawing.Size(49, 13);
-            this.secondCounter.TabIndex = 0;
-            this.secondCounter.Text = "Seconds";
+            this.moveCounter.AutoSize = true;
+            this.moveCounter.Location = new System.Drawing.Point(398, 9);
+            this.moveCounter.Name = "moveCounter";
+            this.moveCounter.Size = new System.Drawing.Size(45, 13);
+            this.moveCounter.TabIndex = 0;
+            this.moveCounter.Text = "Moves: ";
             // 
             // MainScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.BurlyWood;
-            this.Controls.Add(this.secondCounter);
+            this.Controls.Add(this.moveCounter);
             this.DoubleBuffered = true;
             this.Location = new System.Drawing.Point(30, 30);
             this.Name = "MainScreen";
@@ -69,6 +69,6 @@
         #endregion
 
         private System.Windows.Forms.Timer gameLoop;
-        private System.Windows.Forms.Label secondCounter;
+        private System.Windows.Forms.Label moveCounter;
     }
 }

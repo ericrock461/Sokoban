@@ -34,7 +34,8 @@
             // 
             // playButton
             // 
-            this.playButton.Location = new System.Drawing.Point(201, 288);
+            this.playButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.playButton.Location = new System.Drawing.Point(201, 307);
             this.playButton.Name = "playButton";
             this.playButton.Size = new System.Drawing.Size(120, 47);
             this.playButton.TabIndex = 0;
@@ -45,11 +46,11 @@
             // titleLabel
             // 
             this.titleLabel.AutoSize = true;
-            this.titleLabel.Font = new System.Drawing.Font("Swiss921 BT", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.titleLabel.Font = new System.Drawing.Font("Swiss921 BT", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.titleLabel.ForeColor = System.Drawing.Color.White;
-            this.titleLabel.Location = new System.Drawing.Point(213, 148);
+            this.titleLabel.Location = new System.Drawing.Point(193, 173);
             this.titleLabel.Name = "titleLabel";
-            this.titleLabel.Size = new System.Drawing.Size(108, 34);
+            this.titleLabel.Size = new System.Drawing.Size(140, 45);
             this.titleLabel.TabIndex = 1;
             this.titleLabel.Text = "Sokoban";
             // 

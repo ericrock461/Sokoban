@@ -21,13 +21,21 @@ namespace Sokoban
 
         public void Move(string direction)
         {
-            if (direction == "left")
+            if (direction == "left" && x > 0)
             {
-                x = x - 5;
+                x = x - 75;
             }
-            if (direction == "right")
+            if (direction == "up" && y > 0)
             {
-                x = x + 5;
+                y = y - 75;
+            }
+            if (direction == "right" && x < 375)
+            {
+                x = x + 75;
+            }
+            if (direction == "down" && y < 375)
+            {
+                y = y + 75;
             }
         }
 
@@ -36,19 +44,20 @@ namespace Sokoban
 
             Rectangle heroRec = new Rectangle(heroBox.x, heroBox.y, heroBox.size, heroBox.size);
 
+            Rectangle boxRec = new Rectangle(x, y, size, size);
+
+            // TODO - if hero goes into box, box moves in direction hero was moving
+
+            //if hero.intersectsWith (b) && "direction" = true 
+            // b = "direction" //(box will move same direction as hero
+
+            if (heroRec.IntersectsWith(boxRec))
             {
-                Rectangle boxRec = new Rectangle(x, y, size, size);
-
-                // TODO - if hero goes into box, box moves in direction hero was moving
-
-                if (heroRec.IntersectsWith(boxRec))
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
     }

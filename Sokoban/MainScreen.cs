@@ -15,12 +15,11 @@ namespace Sokoban
         // TODO don't forget to make the keys compatible with the arcade machines
 
 
-        //TODO boxes move when moved by character
-
         //TODO game win when all dots are covered
 
-        //TODO in-game timer (try to beat the record!)
-        // if (newRecord > oldRecord) label = "New Record!" (and show time big on screen)
+        //TODO move counter (try to beat the record!)
+        // if (newRecord > oldRecord) label = "New Record!" (and show move count big on screen)
+
 
         //button control keys
         Boolean leftArrowDown, rightArrowDown, upArrowDown, downArrowDown;
@@ -30,11 +29,10 @@ namespace Sokoban
         //used to draw boxes to screen
         SolidBrush boxBrush = new SolidBrush(Color.Sienna);
         //used to draw dots to the screem
-        SolidBrush dotBrush = new SolidBrush(Color.Red);
+        SolidBrush dotBrush = new SolidBrush(Color.Blue);
 
 
-        int timer;
-        int secondCount;
+
 
 
         //create a list to hold all boxes on screen     
@@ -43,11 +41,12 @@ namespace Sokoban
         //create a list to hold all dots on screen
         List<Dot> dots = new List<Dot>();
 
-
-
         //create "hero" box 
         Box hero;
 
+
+        //counts number of moves
+        int moveCount;
 
         public MainScreen()
         {
@@ -58,19 +57,6 @@ namespace Sokoban
         public void OnStart()
         {
             //set game start values
-            //load 5 dots upon loading game
-            Dot d = new Dot(30, 115, 20);
-            dots.Add(d);
-
-            d = new Dot(110, 255, 20);
-            dots.Add(d);
-            d = new Dot(185, 400, 20);
-            dots.Add(d);
-            d = new Dot(400, 75, 20);
-            dots.Add(d);
-            d = new Dot(400, 400, 20);
-            dots.Add(d);
-
 
             //spawn 5 boxes upon loading the game. Their initial positions
             //are always the same
@@ -86,10 +72,23 @@ namespace Sokoban
             b = new Box(75, 300, 75);
             boxes.Add(b);
 
-           
+            
+            //load 5 dots upon loading game
+            Dot d = new Dot(30, 110, 20);
+            dots.Add(d);
+
+            d = new Dot(104, 250, 20);
+            dots.Add(d);
+            d = new Dot(185, 400, 20);
+            dots.Add(d);
+            d = new Dot(402, 100, 20);
+            dots.Add(d);
+            d = new Dot(400, 400, 20);
+            dots.Add(d);
+
+
             //set initial hero box values / variables
             hero = new Box(0, 0, 75);
-
         }
 
         private void GameScreen_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
@@ -137,30 +136,27 @@ namespace Sokoban
             //move hero            
             if (leftArrowDown)
             {
-                hero.x = hero.x - 75;
+                hero.Move("left");
 
-                //by setting the bool to false after pressing button,
-                //we stop the hero from reaching mach speeds in an instant
-                leftArrowDown = false;
+                //adds to moveCount
+                moveCount++;
             }
             if (rightArrowDown)
             {
-                hero.x = hero.x + 75;
-
-                rightArrowDown = false;
+                hero.Move("right");
+                moveCount++;
             }
             if (upArrowDown)
             {
-                hero.y = hero.y - 75;
-
-                upArrowDown = false;
+                hero.Move("up");
+                moveCount++;
             }
             if (downArrowDown)
             {
-                hero.y = hero.y + 75;
-
-                downArrowDown = false;
+                hero.Move("down");
+                moveCount++;
             }
+
 
             //how to make sure hero cannot move diagonally?
             /*if (upArrowDown && rightArrowDown)
@@ -186,54 +182,51 @@ namespace Sokoban
             {
                 if (b.Collision(hero))
                 {
-                    gameLoop.Enabled = false;
+                    if (leftArrowDown)
+                    {
+                        b.Move("left");
+                    }
+                    else if (upArrowDown)
+                    {
+                        b.Move("up");
+                    }
+                    else if (rightArrowDown)
+                    {
+                        b.Move("right");
+                    }
+                    else if (downArrowDown)
+                    {
+                        b.Move("down");
+                    }
                 }
             }
 
-            //counts in-game seconds
-            timer++;
-            if (timer == 1000)
-            {
-                secondCount++;
-                secondCounter.Text = "" + secondCount;
+            //by setting the bools to false after pressing button,
+            //we stop the hero from reaching mach speed in an instant
+            leftArrowDown = rightArrowDown = upArrowDown = downArrowDown = false;
 
-                timer = 0;
-            }
+            moveCounter.Text = "Moves: " + moveCount;
 
             Refresh();
         }
 
-        /*public void Move(string direction)
-        {
-            if (direction == "left")
-            {
-                x = x - 5;
-            }
-            if (direction == "right")
-            {
-                x = x + 5;
-            }*/
-
-
 
         private void GameScreen_Paint(object sender, PaintEventArgs e)
         {
+            //draw dots to the screen
+            foreach (Dot d in dots)
+            {
+                e.Graphics.FillRectangle(dotBrush, d.x, d.y, d.size, d.size);
+            }
+
             //draw boxes to screen
             foreach (Box b in boxes)
             {
                 e.Graphics.FillRectangle(boxBrush, b.x, b.y, b.size, b.size);
             }
 
-
             //draw the "hero" to the screen
             e.Graphics.FillRectangle(heroBrush, hero.x, hero.y, hero.size, hero.size);
-
-
-            //draw dots to the screen
-            foreach (Dot d in dots)
-            {
-                e.Graphics.FillRectangle(dotBrush, d.x, d.y, d.size, d.size);
-            }
 
         }
 
