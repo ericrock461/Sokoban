@@ -9,7 +9,7 @@ namespace Sokoban
 {
     class Box
     {
-        public SolidBrush boxBrush;
+        //public SolidBrush boxBrush;
         public int x, y, size;
 
         public Box(int _x, int _y, int _size)
