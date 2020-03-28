@@ -18,15 +18,14 @@ namespace Sokoban
             size = _size;
         }
 
-        public Boolean Collision(Dot box)
+        public Boolean Collision(Box boxBox)
         {
 
-            // TODO - game win when all dots are covered by boxes
+            // TODO - game win when all dots are covered by boxes           
+
+            Rectangle boxRec = new Rectangle(boxBox.x, boxBox.y, boxBox.size, boxBox.size);
 
             Rectangle dotRec = new Rectangle(x, y, size, size);
-
-
-            Rectangle boxRec = new Rectangle(box.x, box.y, box.size, box.size);
 
 
             if (boxRec.IntersectsWith(dotRec))
@@ -37,8 +36,6 @@ namespace Sokoban
             {
                 return false;
             }
-
-
         }
     }
 }

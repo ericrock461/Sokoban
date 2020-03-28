@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 /*Erich Rock
- * Mr. T
+ * March 28, 2020
  * Project: Sokoban*/
 
 namespace Sokoban

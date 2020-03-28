@@ -12,13 +12,14 @@ namespace Sokoban
 {
     public partial class MainScreen : UserControl
     {
-        // TODO don't forget to make the keys compatible with the arcade machines
 
 
         //TODO game win when all dots are covered
 
         //TODO move counter (try to beat the record!)
         // if (newRecord > oldRecord) label = "New Record!" (and show move count big on screen)
+
+
 
 
         //button control keys
@@ -30,7 +31,8 @@ namespace Sokoban
         SolidBrush boxBrush = new SolidBrush(Color.Sienna);
         //used to draw dots to the screem
         SolidBrush dotBrush = new SolidBrush(Color.Blue);
-
+        //used to walls to the screen
+        SolidBrush wallBrush = new SolidBrush(Color.Black);
 
 
 
@@ -41,12 +43,20 @@ namespace Sokoban
         //create a list to hold all dots on screen
         List<Dot> dots = new List<Dot>();
 
+        //create a list to hold all wall "blocks" on screen
+        List<Wall> walls = new List<Wall>();
+
         //create "hero" box 
         Box hero;
 
 
         //counts number of moves
         int moveCount;
+
+
+        //this counter will track which dots are currently being covered by boxes.
+        //if the counter reaches 5 (all dots covered), the game will end.
+        int dotCovered = 0;
 
         public MainScreen()
         {
@@ -72,7 +82,7 @@ namespace Sokoban
             b = new Box(75, 300, 75);
             boxes.Add(b);
 
-            
+
             //load 5 dots upon loading game
             Dot d = new Dot(30, 110, 20);
             dots.Add(d);
@@ -85,6 +95,14 @@ namespace Sokoban
             dots.Add(d);
             d = new Dot(400, 400, 20);
             dots.Add(d);
+
+
+            /*
+            //load walls upon loading game
+            Wall w = new Wall(50, 0, 75);
+
+            w = new Wall(100, 0, 75);
+            */
 
 
             //set initial hero box values / variables
@@ -207,6 +225,28 @@ namespace Sokoban
 
             moveCounter.Text = "Moves: " + moveCount;
 
+
+            //foreach dot in dots if a box is colliding increase a counter. If counter is 5, stop game
+            //I feel like maybe I was close with this, but I couldn't figure out how to make "box" exist
+            
+            /*
+            foreach (Dot d in dots)
+            {
+                if (d.Collision(box))
+                {
+                    dotCovered++;
+                }
+                else
+                {
+                    dotCovered = 0;
+                }
+            }*/
+
+            if (dotCovered == 5) 
+            {
+                gameLoop.Enabled = false;
+            }
+
             Refresh();
         }
 
@@ -223,6 +263,12 @@ namespace Sokoban
             foreach (Box b in boxes)
             {
                 e.Graphics.FillRectangle(boxBrush, b.x, b.y, b.size, b.size);
+            }
+
+            //draw the walls to the screen
+            foreach (Wall w in walls)
+            {
+                e.Graphics.FillRectangle(wallBrush, w.x, w.y, w.size, w.size);
             }
 
             //draw the "hero" to the screen

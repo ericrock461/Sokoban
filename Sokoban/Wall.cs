@@ -8,6 +8,13 @@ namespace Sokoban
 {
     class Wall
     {
-        //do I really need this class? Could I just make Rectangles?
+        public int x, y, size;
+
+        public Wall(int _x, int _y, int _size)
+        {
+            x = _x;
+            y = _y;
+            size = _size;
+        }
     }
 }
