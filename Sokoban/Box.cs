@@ -46,13 +46,23 @@ namespace Sokoban
 
             Rectangle boxRec = new Rectangle(x, y, size, size);
 
-            // TODO - if hero goes into box, box moves in direction hero was moving
 
             //if hero.intersectsWith (b) && "direction" = true 
             // b = "direction" //(box will move same direction as hero
 
+
+            //TODO 
+
             if (heroRec.IntersectsWith(boxRec))
             {
+                /*if (x < 240 && leftArrowDown == true)
+                {
+                    return true;
+                }
+                else 
+                {
+                    return false;
+                }*/
                 return true;
             }
             else

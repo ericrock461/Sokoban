@@ -13,8 +13,11 @@ namespace Sokoban
     public partial class MainScreen : UserControl
     {
 
+        //TODO Get the game to restart somehow after clicking "play again"
 
         //TODO game win when all dots are covered
+
+        //TODO Make sure Hero and Boxes cannot stack on top of each other
 
         //TODO move counter (try to beat the record!)
         // if (newRecord > oldRecord) label = "New Record!" (and show move count big on screen)
@@ -51,12 +54,13 @@ namespace Sokoban
 
 
         //counts number of moves
-        int moveCount;
+        public static int moveCount;
 
 
         //this counter will track which dots are currently being covered by boxes.
         //if the counter reaches 5 (all dots covered), the game will end.
         int dotCovered = 0;
+
 
         public MainScreen()
         {
@@ -70,6 +74,7 @@ namespace Sokoban
 
             //spawn 5 boxes upon loading the game. Their initial positions
             //are always the same
+
             Box b = new Box(150, 225, 75);
             boxes.Add(b);
 
@@ -95,14 +100,6 @@ namespace Sokoban
             dots.Add(d);
             d = new Dot(400, 400, 20);
             dots.Add(d);
-
-
-            /*
-            //load walls upon loading game
-            Wall w = new Wall(50, 0, 75);
-
-            w = new Wall(100, 0, 75);
-            */
 
 
             //set initial hero box values / variables
@@ -195,7 +192,7 @@ namespace Sokoban
             }*/
 
 
-            //collision
+            //collision between hero box and boxes
             foreach (Box b in boxes)
             {
                 if (b.Collision(hero))
@@ -219,32 +216,58 @@ namespace Sokoban
                 }
             }
 
+            //collision between boxes and boxes
+            //tried to make it so boxes cannot overlap
+            foreach (Box b in boxes)
+            {
+                if (b.Collision(b) && leftArrowDown)
+                {
+                    if (leftArrowDown)
+                    {
+                        leftArrowDown = false;
+                    }
+                    else if (upArrowDown)
+                    {
+                        b.y = b.y + 0;
+                    }
+                    else if (rightArrowDown)
+                    {
+                        b.x = b.x + 0;
+                    }
+                    else if (downArrowDown)
+                    {
+                        b.y = b.y + 0;
+                    }
+                }
+            }
+
             //by setting the bools to false after pressing button,
             //we stop the hero from reaching mach speed in an instant
             leftArrowDown = rightArrowDown = upArrowDown = downArrowDown = false;
 
+            //move counter increases with every move made by the hero
             moveCounter.Text = "Moves: " + moveCount;
 
 
+            //Collision between dots and boxes
             //foreach dot in dots if a box is colliding increase a counter. If counter is 5, stop game
-            //I feel like maybe I was close with this, but I couldn't figure out how to make "box" exist
-            
-            /*
-            foreach (Dot d in dots)
-            {
-                if (d.Collision(box))
-                {
-                    dotCovered++;
-                }
-                else
-                {
-                    dotCovered = 0;
-                }
-            }*/
 
-            if (dotCovered == 5) 
+            foreach (Dot d in dots)
+             {
+                 if (d.Collision (Box))
+                 {
+                     dotCovered++;
+                 }
+                 else
+                 {
+                     dotCovered = 0;
+                 }
+             }
+
+            if (dotCovered == 5)
             {
-                gameLoop.Enabled = false;
+                ResultsScreen rs = new ResultsScreen();
+                this.Controls.Add(rs);
             }
 
             Refresh();
@@ -277,4 +300,5 @@ namespace Sokoban
         }
 
     }
-}
+} 
+

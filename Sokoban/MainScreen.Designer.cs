@@ -42,7 +42,7 @@
             // moveCounter
             // 
             this.moveCounter.AutoSize = true;
-            this.moveCounter.Location = new System.Drawing.Point(398, 9);
+            this.moveCounter.Location = new System.Drawing.Point(375, 9);
             this.moveCounter.Name = "moveCounter";
             this.moveCounter.Size = new System.Drawing.Size(45, 13);
             this.moveCounter.TabIndex = 0;
